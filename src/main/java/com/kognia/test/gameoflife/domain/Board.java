@@ -7,33 +7,14 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Stream;
-import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 public class Board<T> {
 
   public static final String BOARD_HEADER = "!";
-  private final Table<Integer, Integer, T> board = TreeBasedTable.create();
+  private final Table<Integer, Integer, T> board;
 
-  public Board(List<List<T>> rows) {
-    this(rows.stream());
-  }
-
-  public Board(Stream<List<T>> rows) {
-    rows.forEach(this::insertRow);
-  }
-
-  public void set(Integer x, Integer y, T val) {
-    board.put(x, y, val);
-  }
-
-  public void insertRow(List<T> values) {
-    int rowNumber = board.rowKeySet().size();
-    int y = 0;
-    for (T val : values) {
-      board.put(rowNumber, y, val);
-      y++;
-    }
+  private Board(Table<Integer, Integer, T> board) {
+    this.board = board;
   }
 
   public T getCell(Integer x, Integer y) {
@@ -131,8 +112,50 @@ public class Board<T> {
     return s.toString();
   }
 
+  public static BoardBuilder builder() {
+    return new BoardBuilder();
+  }
+
   @Override
   public int hashCode() {
     return Objects.hash(board);
+  }
+
+  public static class BoardBuilder<T> {
+    private final Table<Integer, Integer, T> board = TreeBasedTable.create();
+
+    public BoardBuilder() {}
+
+    public BoardBuilder<T> addRow(List<T> rows) {
+      insertRow(rows);
+      return this;
+    }
+
+    public BoardBuilder<T> addAllRows(List<List<T>> rows) {
+      return addAllRows(rows.stream());
+    }
+
+    public BoardBuilder<T> addAllRows(Stream<List<T>> rows) {
+      rows.forEach(this::insertRow);
+      return this;
+    }
+
+    public BoardBuilder<T> set(Integer x, Integer y, T val) {
+      board.put(x, y, val);
+      return this;
+    }
+
+    protected void insertRow(List<T> values) {
+      int rowNumber = board.rowKeySet().size();
+      int y = 0;
+      for (T val : values) {
+        board.put(rowNumber, y, val);
+        y++;
+      }
+    }
+
+    public Board<T> build() {
+      return new Board<>(board);
+    }
   }
 }

@@ -1,6 +1,7 @@
 package com.kognia.test.gameoflife.feature;
 
 import com.kognia.test.gameoflife.domain.Board;
+import com.kognia.test.gameoflife.domain.Board.BoardBuilder;
 import com.kognia.test.gameoflife.domain.STATUS;
 import java.util.Map;
 import java.util.function.Function;
@@ -11,16 +12,15 @@ import lombok.NoArgsConstructor;
 public class NewGeneration implements Generation<STATUS> {
 
   public Board<STATUS> generate(Board<STATUS> board) {
-    Board<STATUS> newGeneration = new Board<>();
-
+    BoardBuilder builder = Board.builder();
     board.rowCellSet().stream()
         .forEach(
             c -> {
               STATUS newStatus = generate(board, c.getRowKey(), c.getColumnKey());
-              newGeneration.set(c.getRowKey(), c.getColumnKey(), newStatus);
+              builder.set(c.getRowKey(), c.getColumnKey(), newStatus);
             });
 
-    return newGeneration;
+    return builder.build();
   }
 
   @Override

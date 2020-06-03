@@ -12,19 +12,37 @@ class NewGenerationTest {
 
   @Test
   void generation() {
-    Board<STATUS> board = new Board<>();
-    board.insertRow(
-        List.of(STATUS.DEAD, STATUS.DEAD, STATUS.DEAD, STATUS.DEAD, STATUS.DEAD, STATUS.DEAD));
-    board.insertRow(
-        List.of(STATUS.DEAD, STATUS.DEAD, STATUS.DEAD, STATUS.DEAD, STATUS.DEAD, STATUS.DEAD));
-    board.insertRow(
-        List.of(STATUS.DEAD, STATUS.DEAD, STATUS.ALIVE, STATUS.ALIVE, STATUS.ALIVE, STATUS.DEAD));
-    board.insertRow(
-        List.of(STATUS.DEAD, STATUS.ALIVE, STATUS.ALIVE, STATUS.ALIVE, STATUS.DEAD, STATUS.DEAD));
-    board.insertRow(
-        List.of(STATUS.DEAD, STATUS.DEAD, STATUS.DEAD, STATUS.DEAD, STATUS.DEAD, STATUS.DEAD));
-    board.insertRow(
-        List.of(STATUS.DEAD, STATUS.DEAD, STATUS.DEAD, STATUS.DEAD, STATUS.DEAD, STATUS.DEAD));
+    Board<STATUS> board =
+        Board.builder()
+            .addRow(
+                List.of(
+                    STATUS.DEAD, STATUS.DEAD, STATUS.DEAD, STATUS.DEAD, STATUS.DEAD, STATUS.DEAD))
+            .addRow(
+                List.of(
+                    STATUS.DEAD, STATUS.DEAD, STATUS.DEAD, STATUS.DEAD, STATUS.DEAD, STATUS.DEAD))
+            .addRow(
+                List.of(
+                    STATUS.DEAD,
+                    STATUS.DEAD,
+                    STATUS.ALIVE,
+                    STATUS.ALIVE,
+                    STATUS.ALIVE,
+                    STATUS.DEAD))
+            .addRow(
+                List.of(
+                    STATUS.DEAD,
+                    STATUS.ALIVE,
+                    STATUS.ALIVE,
+                    STATUS.ALIVE,
+                    STATUS.DEAD,
+                    STATUS.DEAD))
+            .addRow(
+                List.of(
+                    STATUS.DEAD, STATUS.DEAD, STATUS.DEAD, STATUS.DEAD, STATUS.DEAD, STATUS.DEAD))
+            .addRow(
+                List.of(
+                    STATUS.DEAD, STATUS.DEAD, STATUS.DEAD, STATUS.DEAD, STATUS.DEAD, STATUS.DEAD))
+            .build();
 
     System.out.println(board);
     System.out.println("--------------------------------------");
@@ -35,11 +53,13 @@ class NewGenerationTest {
 
   @Test
   void cellGeneration() {
-    Board<STATUS> board = new Board<>();
-    board.insertRow(List.of(STATUS.DEAD, STATUS.DEAD, STATUS.DEAD));
-    board.insertRow(List.of(STATUS.DEAD, STATUS.DEAD, STATUS.ALIVE));
-    board.insertRow(List.of(STATUS.DEAD, STATUS.ALIVE, STATUS.ALIVE));
-    board.insertRow(List.of(STATUS.DEAD, STATUS.DEAD, STATUS.DEAD));
+    Board<STATUS> board =
+        Board.builder()
+            .addRow(List.of(STATUS.DEAD, STATUS.DEAD, STATUS.DEAD))
+            .addRow(List.of(STATUS.DEAD, STATUS.DEAD, STATUS.ALIVE))
+            .addRow(List.of(STATUS.DEAD, STATUS.ALIVE, STATUS.ALIVE))
+            .addRow(List.of(STATUS.DEAD, STATUS.DEAD, STATUS.DEAD))
+            .build();
 
     NewGeneration newGen = new NewGeneration();
     assertEquals(STATUS.DEAD, newGen.generate(board, 0, 0));

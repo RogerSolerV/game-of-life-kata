@@ -1,4 +1,5 @@
 # Game Of Life - Kata
+![](https://github.com/RogerSolerV/game-of-life-kata/workflows/JavaMavenCI/badge.svg)
 
 ## Built With
 Check `pom.xml` for all libraries and frameworks used and their versions.

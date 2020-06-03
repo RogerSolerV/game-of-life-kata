@@ -12,18 +12,18 @@ class BoardTest {
 
   @Test
   void testInserts() {
-    Board<String> board = new Board<>();
-    board.set(0, 0, "1");
-    board.set(0, 1, "2");
-    board.set(0, 2, "3");
-
-    board.set(1, 0, "4");
-    board.set(1, 1, "5");
-    board.set(1, 2, "6");
-
-    board.set(2, 0, "7");
-    board.set(2, 1, "8");
-    board.set(2, 2, "9");
+    Board<String> board =
+        Board.builder()
+            .set(0, 0, "1")
+            .set(0, 1, "2")
+            .set(0, 2, "3")
+            .set(1, 0, "4")
+            .set(1, 1, "5")
+            .set(1, 2, "6")
+            .set(2, 0, "7")
+            .set(2, 1, "8")
+            .set(2, 2, "9")
+            .build();
 
     Board<String> board2 = getOneToNineBoard();
 
@@ -71,10 +71,10 @@ class BoardTest {
   }
 
   private Board<String> getOneToNineBoard() {
-    Board<String> board = new Board<>();
-    board.insertRow(List.of("1", "2", "3"));
-    board.insertRow(List.of("4", "5", "6"));
-    board.insertRow(List.of("7", "8", "9"));
-    return board;
+    return Board.builder()
+        .addRow(List.of("1", "2", "3"))
+        .addRow(List.of("4", "5", "6"))
+        .addRow(List.of("7", "8", "9"))
+        .build();
   }
 }
