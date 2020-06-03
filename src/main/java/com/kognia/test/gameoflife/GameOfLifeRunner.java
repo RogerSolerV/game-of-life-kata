@@ -10,10 +10,14 @@ public class GameOfLifeRunner {
   public static void main(String[] args) throws Exception {
     Board<STATUS> board = LinesToBoardConverter.readBoard("board.life");
     System.out.println(board);
-    System.out.println("------------------------------------");
 
     NewGeneration moveOn = new NewGeneration();
-    Board<STATUS> newBoard = moveOn.generate(board);
-    System.out.println(newBoard);
+    System.out.println("------------------------------------");
+    Board<STATUS> secondGeneration = moveOn.generate(board);
+    System.out.println(secondGeneration);
+
+    System.out.println("------------------------------------");
+    Board<STATUS> thirdGeneration = moveOn.generate(secondGeneration);
+    System.out.println(thirdGeneration);
   }
 }
