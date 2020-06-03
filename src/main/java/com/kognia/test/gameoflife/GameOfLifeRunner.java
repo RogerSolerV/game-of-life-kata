@@ -1,23 +1,23 @@
 package com.kognia.test.gameoflife;
 
-import java.util.TimeZone;
-import javax.annotation.PostConstruct;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.scheduling.annotation.EnableScheduling;
+import com.kognia.test.gameoflife.domain.Board;
+import com.kognia.test.gameoflife.domain.STATUS;
+import com.kognia.test.gameoflife.feature.NewGeneration;
+import com.kognia.test.gameoflife.io.LinesToBoardConverter;
 
-@SpringBootApplication(scanBasePackages = {"com.kognia.test.gameoflife"})
-@EnableScheduling
-@EnableAspectJAutoProxy
 public class GameOfLifeRunner {
 
-  public static void main(String[] args) {
-    SpringApplication.run(GameOfLifeRunner.class, args);
-  }
+  public static void main(String[] args) throws Exception {
+    Board<STATUS> board = LinesToBoardConverter.readBoard("board.life");
+    System.out.println(board);
 
-  @PostConstruct
-  public void init() {
-    TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+    NewGeneration moveOn = new NewGeneration();
+    System.out.println("------------------------------------");
+    Board<STATUS> secondGeneration = moveOn.generate(board);
+    System.out.println(secondGeneration);
+
+    System.out.println("------------------------------------");
+    Board<STATUS> thirdGeneration = moveOn.generate(secondGeneration);
+    System.out.println(thirdGeneration);
   }
 }
