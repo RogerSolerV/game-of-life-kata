@@ -2,6 +2,7 @@ package com.kognia.test.gameoflife;
 
 import com.kognia.test.gameoflife.domain.Board;
 import com.kognia.test.gameoflife.domain.STATUS;
+import com.kognia.test.gameoflife.feature.NewGeneration;
 import com.kognia.test.gameoflife.io.LinesToBoardConverter;
 
 public class GameOfLifeRunner {
@@ -9,5 +10,10 @@ public class GameOfLifeRunner {
   public static void main(String[] args) throws Exception {
     Board<STATUS> board = LinesToBoardConverter.readBoard("board.life");
     System.out.println(board);
+    System.out.println("------------------------------------");
+
+    NewGeneration moveOn = new NewGeneration();
+    Board<STATUS> newBoard = moveOn.generate(board);
+    System.out.println(newBoard);
   }
 }
