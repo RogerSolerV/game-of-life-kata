@@ -1,19 +1,29 @@
 package com.kognia.test.gameoflife.domain;
 
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Table;
+import com.google.common.collect.Table.Cell;
 import com.google.common.collect.TreeBasedTable;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Stream;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 public class Board<T> {
 
+  public static final String BOARD_HEADER = "!";
   private final Table<Integer, Integer, T> board = TreeBasedTable.create();
 
-  @VisibleForTesting
-  protected void set(Integer x, Integer y, T val) {
+  public Board(List<List<T>> rows) {
+    this(rows.stream());
+  }
+
+  public Board(Stream<List<T>> rows) {
+    rows.forEach(this::insertRow);
+  }
+
+  public void set(Integer x, Integer y, T val) {
     board.put(x, y, val);
   }
 
@@ -28,6 +38,10 @@ public class Board<T> {
 
   public T getCell(Integer x, Integer y) {
     return board.get(x, y);
+  }
+
+  public Set<Cell<Integer, Integer, T>> rowCellSet() {
+    return board.cellSet();
   }
 
   public List<T> getNeighbours(Integer x, Integer y) {
@@ -74,7 +88,8 @@ public class Board<T> {
   }
 
   public T getNorthWest(Integer x, Integer y) {
-    return getCell(prevValue(x, board.rowKeySet().size()), prevValue(x, board.rowKeySet().size()));
+    return getCell(
+        prevValue(x, board.rowKeySet().size()), prevValue(x, board.columnKeySet().size()));
   }
 
   public static Integer nextValue(Integer x, Integer rowSize) {
@@ -105,7 +120,7 @@ public class Board<T> {
 
   @Override
   public String toString() {
-    StringBuilder s = new StringBuilder("!");
+    StringBuilder s = new StringBuilder(BOARD_HEADER);
     s.append(System.lineSeparator());
     for (Integer row : board.rowKeySet()) {
       for (Integer col : board.columnKeySet()) {
