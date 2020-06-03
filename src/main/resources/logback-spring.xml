@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+  <springProperty scope="context" name="component" source="spring.application.name"/>
+  <springProfile name="!development">
+    <appender class="ch.qos.logback.core.ConsoleAppender" name="consoleAppender">
+      <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+        <fieldNames>
+          <timestamp>time</timestamp>
+          <message>message</message>
+          <thread>thread</thread>
+          <logger>logger</logger>
+          <version>[ignore]</version>
+          <levelValue>[ignore]</levelValue>
+        </fieldNames>
+        <throwableConverter class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
+          <maxDepthPerThrowable>50</maxDepthPerThrowable>
+          <maxLength>5000</maxLength>
+          <shortenedClassNameLength>60</shortenedClassNameLength>
+          <rootCauseFirst>false</rootCauseFirst>
+          <exclude>org\.springframework\..*</exclude>
+          <inlineHash>true</inlineHash>
+        </throwableConverter>
+      </encoder>
+    </appender>
+  </springProfile>
+  <springProfile name="development">
+    <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+      <encoder>
+        <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger{36}.%M
+          - %message%n
+        </pattern>
+      </encoder>
+    </appender>
+  </springProfile>
+  <root level="INFO">
+    <appender-ref ref="consoleAppender"/>
+  </root>
+</configuration>

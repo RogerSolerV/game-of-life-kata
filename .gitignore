@@ -1,0 +1,50 @@
+#general
+bin/
+log/
+target/
+tmp/
+
+# eclipse
+.metadata
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
+
+# intellij idea
+.idea/
+*.iml
+
+#VM crashes
+hs_err_pid*
+*.log
+
+#editors
+*.tmp
+*.bak
+*.swp
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+#mac_os
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+.DocumentRevisions-V100
+.fseventsd
+.TemporaryItems
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+#development configuration
+application-development.yml
