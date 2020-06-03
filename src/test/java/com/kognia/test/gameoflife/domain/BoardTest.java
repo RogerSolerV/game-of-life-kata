@@ -27,8 +27,16 @@ class BoardTest {
 
     Board<String> board2 = getOneToNineBoard();
 
+    Board<String> board3 =
+        Board.builder()
+            .addAllRows(
+                List.of(List.of("1", "2", "3"), List.of("4", "5", "6"), List.of("7", "8", "9")))
+            .build();
+
     assertEquals(board, board);
     assertEquals(board, board2);
+    assertEquals(board, board3);
+    assertEquals(board2, board3);
     assertNotEquals(board, "A");
   }
 

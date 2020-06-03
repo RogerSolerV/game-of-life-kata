@@ -21,13 +21,8 @@ public class GameOfLifeRunner {
     System.out.println(thirdGeneration);
 
     // TODO stuff
-    // Make Board final with Builder
-    // NewGeneration class make up, name, static?
-    // Generate in threadpool / parallel
-    // Unit test coverage
     // Read args on main
     // parameter for number of generations
-    // Small class / connection diagram
     // explain milestones done, 1-3 not 2! :)
   }
 }

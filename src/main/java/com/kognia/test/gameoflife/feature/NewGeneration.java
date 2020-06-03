@@ -1,5 +1,6 @@
 package com.kognia.test.gameoflife.feature;
 
+import com.google.common.collect.Table.Cell;
 import com.kognia.test.gameoflife.domain.Board;
 import com.kognia.test.gameoflife.domain.Board.BoardBuilder;
 import com.kognia.test.gameoflife.domain.STATUS;
@@ -13,14 +14,14 @@ public class NewGeneration implements Generation<STATUS> {
 
   public Board<STATUS> generate(Board<STATUS> board) {
     BoardBuilder builder = Board.builder();
-    board.rowCellSet().stream()
-        .forEach(
-            c -> {
-              STATUS newStatus = generate(board, c.getRowKey(), c.getColumnKey());
-              builder.set(c.getRowKey(), c.getColumnKey(), newStatus);
-            });
-
+    board.rowCellSet().stream().parallel().forEach(c -> generateAndSet(board, builder, c));
     return builder.build();
+  }
+
+  private void generateAndSet(
+      Board<STATUS> board, BoardBuilder builder, Cell<Integer, Integer, STATUS> c) {
+    STATUS newStatus = generate(board, c.getRowKey(), c.getColumnKey());
+    builder.set(c.getRowKey(), c.getColumnKey(), newStatus);
   }
 
   @Override

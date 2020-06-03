@@ -28,9 +28,8 @@ public enum STATUS {
       case ALIVE:
         return ALIVE_CHAR;
       case DEAD:
-        return DEAD_CHAR;
       default:
-        throw new IllegalArgumentException();
+        return DEAD_CHAR;
     }
   }
 }
