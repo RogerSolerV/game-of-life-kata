@@ -8,7 +8,7 @@ import com.kognia.test.gameoflife.domain.STATUS;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-class NewGenerationTest {
+class StatusBoardGenerationTest {
 
   @Test
   void generation() {
@@ -46,7 +46,7 @@ class NewGenerationTest {
 
     System.out.println(board);
     System.out.println("--------------------------------------");
-    NewGeneration newGen = new NewGeneration();
+    StatusBoardGeneration newGen = new StatusBoardGeneration();
     Board<STATUS> newBoard = newGen.generate(board);
     System.out.println(newBoard);
   }
@@ -61,7 +61,7 @@ class NewGenerationTest {
             .addRow(List.of(STATUS.DEAD, STATUS.DEAD, STATUS.DEAD))
             .build();
 
-    NewGeneration newGen = new NewGeneration();
+    StatusBoardGeneration newGen = new StatusBoardGeneration();
     assertEquals(STATUS.DEAD, newGen.generate(board, 0, 0));
     assertEquals(STATUS.DEAD, newGen.generate(board, 0, 2));
     assertEquals(STATUS.ALIVE, newGen.generate(board, 1, 0));

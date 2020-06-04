@@ -10,8 +10,9 @@ import java.util.stream.Collectors;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-public class NewGeneration implements Generation<STATUS> {
+public class StatusBoardGeneration implements BoardGeneration<STATUS>, CellGeneration<STATUS> {
 
+  @Override
   public Board<STATUS> generate(Board<STATUS> board) {
     BoardBuilder builder = Board.builder();
     board.rowCellSet().stream().parallel().forEach(c -> generateAndSet(board, builder, c));
