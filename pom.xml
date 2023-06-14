@@ -31,7 +31,7 @@
     <junit.version>5.6.2</junit.version>
     <mockito.version>3.3.3</mockito.version>
     <logstash.version>6.3</logstash.version>
-    <guava.version>29.0-jre</guava.version>
+    <guava.version>32.0.0-jre</guava.version>
 
     <fmt.plugin.version>2.9</fmt.plugin.version>
     <jacoco.version>0.8.5</jacoco.version>
